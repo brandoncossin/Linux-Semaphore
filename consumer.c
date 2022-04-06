@@ -1,21 +1,55 @@
 // Brandon Cossin
+// Operating Systems Assignment 1
+// Consumer file
+
 #include <semaphore.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <unistd.h>
 
-#define SEM_NAME "/semaphore_counter
-
-
+#define SEM_NAME "/semaphore_counter"
+#define SHM_NAME "/shared_table"
 int main(){
+  //shared memory creation
+  struct table_name {
+    int buf[3];
+  };
+  //int table[2];
+  void *addr;
+  int size = 4096;
+  int fd = shm_open(SHM_NAME, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+  int fres;
+  fres = ftruncate(fd, size);
+  if(fres == -1){
+    printf("Consumer: ftruncate error");
+    shm_unlink(SHM_NAME);
+    return 1;
+  }
+  struct table_name *tble = mmap(NULL, size, PROT_WRITE, MAP_SHARED, fd, 0);
   sem_t *semaphore = sem_open (SEM_NAME, 0);
   int value;
-  printf("starting the processes");
-  sem_post(semaphore);
-  printf("running");
-  sem_wait(semaphore);
-  printf("process 2 ran");
+  int LOOP_TIMES = 6;
+  while(LOOP_TIMES > 0){
+    sem_wait(semaphore);
+    if(tble->buf[0] != 0 & tble->buf[1] != 0){
+      printf("Consumer: Critical Stage\n");
+      printf("Consumer: Buffer has a value of ");
+      printf("%i", tble->buf[0]);
+      printf(" ");
+      printf("%i", tble->buf[1]);
+      printf("\n Consumer: Changing Value of buffer to ");
+      tble->buf[0] = 0;
+      tble->buf[1] = 0;
+      printf("%i", tble->buf[0]);
+      printf(" ");
+      printf("%i", tble->buf[1]);
+      printf(" \n");
+      --LOOP_TIMES;
+    }
+    sem_post(semaphore);
+  }
   sem_post(semaphore);
   return 0;
 }
