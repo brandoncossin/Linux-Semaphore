@@ -16,9 +16,9 @@ int main(){
   struct table_name {
     int buf[3];
   };
-  //int table[2];
   void *addr;
   int size = 4096;
+  int sd = shm_unlink(SHM_NAME);
   int fd = shm_open(SHM_NAME, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
   int fres;
   fres = ftruncate(fd, size);
@@ -34,14 +34,17 @@ int main(){
   while(LOOP_TIMES > 0){
     sem_wait(semaphore);
     if(tble->buf[0] != 0 & tble->buf[1] != 0){
-      printf("Consumer: Critical Stage\n");
-      printf("Consumer: Buffer has a value of ");
+      printf("Consumer: Table has a values of ");
       printf("%i", tble->buf[0]);
       printf(" ");
       printf("%i", tble->buf[1]);
-      printf("\n Consumer: Changing Value of buffer to ");
+      printf("\nConsumer: Removing object ");
+      printf("%i", tble->buf[0]);
+      printf("\nConsumer: Removing object ");
+      printf("%i", tble->buf[1]);
       tble->buf[0] = 0;
       tble->buf[1] = 0;
+      printf("\nConsumer: Table now has values of ");
       printf("%i", tble->buf[0]);
       printf(" ");
       printf("%i", tble->buf[1]);
@@ -50,6 +53,8 @@ int main(){
     }
     sem_post(semaphore);
   }
-  sem_post(semaphore);
+  sem_close(semaphore);
+  sem_unlink(SEM_NAME);
+  shm_unlink(SHM_NAME);
   return 0;
 }
