@@ -1,6 +1,6 @@
 # Linux-Semaphore  
 Linux system contains a POSIX Semaphores library  
-This is compiled by linking the compilation with -lpthread -lrt  
+This is compiled by linking the compilation with -pthread -lrt  
 ## Setup
 ```
 sudo apt-get install gcc
