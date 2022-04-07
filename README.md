@@ -28,6 +28,7 @@ Shared Semaphore is created by using sem_open to use a named semaphore.
 6. The producer's critical stage is filling the table with non-zero integers
 7. The consumer's critical stage is removing (filling) the table with zero
 8. The program ends after a defined number of loops have been ran (8)
+## Example
 ```
 Producer: initializer complete.
 Producer: Created object 6
