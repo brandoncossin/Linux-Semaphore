@@ -7,8 +7,8 @@ sudo apt-get install gcc
 ```
 ## Compilation  
 ```
-gcc producer -pthread -lrt -o producer  
-gcc consumer -pthread -lrt -o consumer  
+gcc producer.c -pthread -lrt -o producer  
+gcc consumer.c -pthread -lrt -o consumer  
 ./producer & ./consumer &  
 ```
 ## Files
@@ -28,3 +28,42 @@ Shared Semaphore is created by using sem_open to use a named semaphore.
 6. The producer's critical stage is filling the table with non-zero integers
 7. The consumer's critical stage is removing (filling) the table with zero
 8. The program ends after a defined number of loops have been ran (8)
+```
+Producer: initializer complete.
+Producer: Created object 6
+Producer: Created object 5
+Consumer: Table has a values of 6 5
+Consumer: Removing object 6
+Consumer: Removing object 5
+Consumer: Table now has values of 0 0
+Producer: Created object 3
+Producer: Created object 6
+Consumer: Table has a values of 3 6
+Consumer: Removing object 3
+Consumer: Removing object 6
+Consumer: Table now has values of 0 0
+Producer: Created object 8
+Producer: Created object 3
+Consumer: Table has a values of 8 3
+Consumer: Removing object 8
+Consumer: Removing object 3
+Consumer: Table now has values of 0 0
+Producer: Created object 3
+Producer: Created object 5
+Consumer: Table has a values of 3 5
+Consumer: Removing object 3
+Consumer: Removing object 5
+Consumer: Table now has values of 0 0
+Producer: Created object 8
+Producer: Created object 7
+Consumer: Table has a values of 8 7
+Consumer: Removing object 8
+Consumer: Removing object 7
+Consumer: Table now has values of 0 0
+Producer: Created object 4
+Producer: Created object 3
+Consumer: Table has a values of 4 3
+Consumer: Removing object 4
+Consumer: Removing object 3
+Consumer: Table now has values of 0 0
+```
