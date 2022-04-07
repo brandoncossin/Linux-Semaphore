@@ -16,9 +16,9 @@ int main(){
   struct table_name {
     int buf[3];
   };
+  //int table[2];
   void *addr;
   int size = 4096;
-  int sd = shm_unlink(SHM_NAME);
   int fd = shm_open(SHM_NAME, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
   int fres;
   fres = ftruncate(fd, size);
@@ -53,8 +53,6 @@ int main(){
     }
     sem_post(semaphore);
   }
-  sem_close(semaphore);
-  sem_unlink(SEM_NAME);
-  shm_unlink(SHM_NAME);
+  sem_post(semaphore);
   return 0;
 }
