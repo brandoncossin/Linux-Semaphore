@@ -31,40 +31,40 @@ Shared Semaphore is created by using sem_open to use a named semaphore.
 ## Example
 ```
 Producer: initializer complete.
-Producer: Created object 6
-Producer: Created object 5
-Consumer: Table has a values of 6 5
-Consumer: Removing object 6
-Consumer: Removing object 5
-Consumer: Table now has values of 0 0
-Producer: Created object 3
-Producer: Created object 6
-Consumer: Table has a values of 3 6
-Consumer: Removing object 3
-Consumer: Removing object 6
-Consumer: Table now has values of 0 0
+Producer: Created object 18
+Consumer: Table has a values of 18 75
+Producer: Created object 75
+Consumer: Removing object 18
+Consumer: Removing object 75
+Producer: Created object 20
+Consumer: Table now has values of 20 71
+Producer: Created object 71
+Consumer: Table has a values of 20 71
+Consumer: Removing object 20
+Consumer: Removing object 71
 Producer: Created object 8
-Producer: Created object 3
-Consumer: Table has a values of 8 3
+Consumer: Table now has values of 8 6
+Producer: Created object 6
+Consumer: Table has a values of 8 6
 Consumer: Removing object 8
-Consumer: Removing object 3
-Consumer: Table now has values of 0 0
-Producer: Created object 3
-Producer: Created object 5
-Consumer: Table has a values of 3 5
-Consumer: Removing object 3
-Consumer: Removing object 5
-Consumer: Table now has values of 0 0
-Producer: Created object 8
-Producer: Created object 7
-Consumer: Table has a values of 8 7
-Consumer: Removing object 8
-Consumer: Removing object 7
-Consumer: Table now has values of 0 0
-Producer: Created object 4
-Producer: Created object 3
-Consumer: Table has a values of 4 3
-Consumer: Removing object 4
-Consumer: Removing object 3
+Consumer: Removing object 6
+Producer: Created object 87
+Consumer: Table now has values of 87 23
+Producer: Created object 23
+Consumer: Table has a values of 87 23
+Consumer: Removing object 87
+Consumer: Removing object 23
+Producer: Created object 6
+Consumer: Table now has values of 6 55
+Producer: Created object 55
+Consumer: Table has a values of 6 55
+Consumer: Removing object 6
+Consumer: Removing object 55
+Producer: Created object 61
+Consumer: Table now has values of 61 90
+Producer: Created object 90
+Consumer: Table has a values of 61 90
+Consumer: Removing object 61
+Consumer: Removing object 90
 Consumer: Table now has values of 0 0
 ```
