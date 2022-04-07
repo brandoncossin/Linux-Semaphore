@@ -10,11 +10,9 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 #define SEM_NAME "/semaphore_counter"
 #define SHM_NAME "/shared_table"
-
 int main(){
   //shared memory creation
   struct table_name {
@@ -22,7 +20,6 @@ int main(){
   };
   void *addr;
   int size = 4096;
-  //int sd = shm_unlink(SHM_NAME);
   int fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
   struct table_name *tble = mmap(NULL, size, PROT_WRITE, MAP_SHARED, fd, 0);
   //semaphore logic
@@ -36,11 +33,10 @@ int main(){
   sem_post(semaphore);
   while(LOOP_TIMES > 0){
     sem_wait(semaphore);
-    //sleep(1);
     if(tble->buf[0] == 0 & tble->buf[1] == 0){
-      int tmp1 = (rand() % 9) + 1;
+      int tmp1 = (rand() % 99) + 1;
       tble->buf[0] = tmp1;
-      int tmp2 = (rand() % 9) + 1;
+      int tmp2 = (rand() % 99) + 1;
       tble->buf[1] = tmp2;
       printf("Producer: Created object %d", tmp1);
       printf("\nProducer: Created object %d", tmp2);
@@ -49,8 +45,5 @@ int main(){
     }
     sem_post(semaphore);
   }
-  sem_close(semaphore);
-  sem_unlink(SEM_NAME);
-  shm_unlink(SHM_NAME);
   return 0;
 }
